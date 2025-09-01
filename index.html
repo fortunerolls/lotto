@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LottoFROLL — Instant Lo-De, fully transparent on-chain</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="icon" type="image/png" href="froll_48.png"/>
+
+  <!-- Small helpers just for this page (lists & small headings) -->
+  <style>
+    #intro-lode-en h4{
+      margin:4px 0 6px;
+      font-size:16px;
+      color:var(--accent-strong);
+    }
+    .vx-list{margin:6px 0 12px; padding-left:18px;}
+    .vx-list li{margin:4px 0; line-height:1.55;}
+    .vx-steps{list-style:decimal; margin:6px 0 12px; padding-left:18px;}
+    .vx-steps li{margin:6px 0; line-height:1.55;}
+    @media (max-width:780px){
+      #intro-lode-en p,#intro-lode-en li{font-size:15px;}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============== NAVBAR ============== -->
+  <header class="vx-nav">
+    <div class="vx-nav__left">
+      <img src="froll_48.png" alt="FROLL" class="vx-logo" />
+      <div class="vx-brand">LottoFROLL — Instant Lo-De, fully transparent on-chain</div>
+    </div>
+
+    <div class="vx-nav__right">
+      <button id="connect-btn" class="vx-btn primary">Connect Wallet</button>
+    </div>
+
+    <div class="vx-nav__meta">
+      <span id="frollPriceNav" class="price-chip">1 FROLL ≈ $-- USD</span>
+      <span id="wallet-address" class="wallet-address"></span>
+    </div>
+  </header>
+
+  <!-- ============== MAIN CONTENT ============== -->
+  <main>
+
+    <!-- WALLET BALANCES -->
+    <section id="wallet-balances" class="vx-info balances-row">
+      <div class="balance-card">VIC: <span id="vic-balance">Loading...</span></div>
+      <div class="balance-card">FROLL: <span id="froll-balance">Loading...</span></div>
+      <div class="balance-card">FROLL Pool: <span id="froll-pool">Loading...</span></div>
+    </section>
+
+    <!-- GAME INTRO (EN) -->
+    <section id="intro-lode-en" class="vx-info">
+      <h2>Introducing Lo–De on LottoFROLL</h2>
+      <p><strong>Lo–De</strong> is a classic Vietnamese numbers game (00–99). On <strong>LottoFROLL</strong>, the experience is brought on-chain: bets are <strong>spun instantly</strong>, payouts are <strong>automatic in FROLL</strong>, and everything is <strong>transparent and fair</strong> on the blockchain.</p>
+
+      <h3>Game definitions</h3>
+      <h4>Lo</h4>
+      <p>Pick a two-digit number <strong>(00–99)</strong> and place your bet. <strong>You get 27 spins</strong> (27 two-digit results) against your number. Each hit pays <strong>×4</strong> your stake per hit, accumulating if you hit multiple times.</p>
+
+      <h4>De</h4>
+      <p>Pick a two-digit number <strong>(00–99)</strong> and place your bet. <strong>You get 1 spin.</strong> If it hits, the payout is <strong>×70</strong> your stake.</p>
+
+      <h3>How the spins are determined</h3>
+      <ul class="vx-list">
+        <li>Each ticket generates its own random seed at the moment you press <strong>Place Bet</strong> and the transaction confirms.</li>
+        <li><strong>Lo:</strong> from the same seed, the contract derives <strong>27 two-digit numbers (00–99)</strong> in order; spins are <em>with replacement</em>, so duplicates are possible and each match pays ×4 cumulatively.</li>
+        <li><strong>De:</strong> the contract derives <strong>one two-digit number (00–99)</strong>.</li>
+        <li>Results are written <strong>directly on-chain</strong>, immutable, and shown immediately.</li>
+      </ul>
+
+      <h3>Quick start</h3>
+      <ol class="vx-steps">
+        <li>Install <strong>MetaMask</strong> and switch to the <strong>VIC</strong> network.</li>
+        <li>Visit <strong>Lottery.vin</strong> → scroll to the footer → click <strong>LottoFROLL</strong> to open the game.</li>
+        <li>Choose <strong>Lo</strong> or <strong>De</strong> (radio button).</li>
+        <li>Enter your <strong>00–99</strong> number(s) and the <strong>FROLL</strong> stake per row. Use <strong>Add Row</strong> to play multiple numbers with different stakes.</li>
+        <li>Don’t want to think? Use <strong>Lucky Picks</strong>: type how many lucky numbers you want, then click <strong>Quick Pick</strong>.</li>
+        <li>Click <strong>Place Bet</strong> and sign — the contract <strong>spins instantly</strong> and shows your result. Bets are in FROLL, payouts are in FROLL.</li>
+      </ol>
+      <p class="muted">
+        To review a past bet, copy the <strong>transaction hash</strong> of your FROLL bet (the bet transaction, not Approve), paste it into <strong>Decode Event Data</strong> on this dApp, then click <em>Decode</em>. FROLL info: <a href="https://vicscan.xyz/token/0xB4d562A8f811CE7F134a1982992Bd153902290BC" target="_blank" rel="noopener">view on VicScan</a>.
+      </p>
+      <h3>Notice & responsibility</h3>
+      <p class="muted">This is an <strong>entertainment</strong> game that runs <strong>fully automatically</strong> via a <strong>smart contract</strong> on-chain. There is <strong>no operator</strong> to intervene or take responsibility on your behalf. <strong>Play responsibly</strong> (for fun, not to affect your life). You are responsible for complying with the <strong>laws of your jurisdiction</strong>—please check before playing and make your own decision.</p>
+    </section>
+
+    <!-- Bet Type -->
+    <div class="bet-type">
+      <!-- Keep the same values for app.js logic; labels updated to Lo/De -->
+      <label><input type="radio" name="bet-type" value="lucky27" checked /> Lo</label>
+      <label><input type="radio" name="bet-type" value="matchup" /> De</label>
+    </div>
+    
+ <!-- LUCKY PICKS -->
+    <section id="lucky-picks" class="vx-info">
+      <h2>Lucky Picks</h2>
+      <p class="muted">Auto-pick lucky numbers. Enter how many numbers you want and click Quick Pick.</p>
+      <div class="lucky-grid">
+        <div class="vx-input">
+          <label>How many lucky numbers? (1–99)</label>
+          <input type="number" id="lucky-count" min="1" max="99" step="1" placeholder="e.g., 5"/>
+        </div>
+        <div class="row-buttons">
+          <button id="lucky-generate" class="vx-btn">Quick Pick</button>
+        </div>
+      </div>
+      <p id="lucky-preview" class="muted"></p>
+    </section>
+    
+    <!-- Action buttons -->
+    <div class="vx-info">
+      <div class="place-bet-buttons">
+        <button id="repeat-bet-btn" class="vx-btn">Repeat</button>
+        <button id="double-bet-btn" class="vx-btn">Double</button>
+        <button id="halve-bet-btn" class="vx-btn">1/2</button>
+      </div>
+    </div>
+
+    <!-- Bet Rows -->
+    <div id="bet-numbers-container">
+      <div class="bet-row" data-row="0">
+        <div class="vx-input">
+          <label>Choose Number</label>
+          <input type="text" class="numbers" placeholder="Enter number" maxlength="2"/>
+        </div>
+        <div class="vx-input">
+          <label>Enter Stake (Min bet: 0.001 FROLL)</label>
+          <input type="number" class="stakes" min="0.001" step="0.001" placeholder="e.g., 0.001"/>
+        </div>
+        <div class="row-buttons">
+          <button class="vx-btn add-row-btn">Add Row</button>
+          <button class="vx-btn clear-btn">Clear</button>
+          <button class="vx-btn remove-row-btn" disabled>Remove</button>
+        </div>
+      </div>
+
+      <!-- Template for JS -->
+      <template id="bet-row-template">
+        <div class="bet-row">
+          <div class="vx-input">
+            <label>Choose Number</label>
+            <input type="text" class="numbers" placeholder="Enter number" maxlength="2"/>
+          </div>
+          <div class="vx-input">
+            <label>Enter Stake (FROLL)</label>
+            <input type="number" class="stakes" min="0.001" step="0.001" placeholder="e.g., 0.001"/>
+          </div>
+          <div class="row-buttons">
+            <button class="vx-btn add-row-btn">Add Row</button>
+            <button class="vx-btn clear-btn">Clear</button>
+            <button class="vx-btn remove-row-btn">Remove</button>
+          </div>
+        </div>
+      </template>
+    </div>
+
+    <!-- Total FROLL and Place Bet -->
+    <div class="vx-info">
+      <div class="total-stake-container">
+        <p>Total Stake: <span id="total-stake">0</span> FROLL</p>
+      </div>
+      <div class="place-bet-buttons">
+        <button id="place-bet-btn" class="vx-btn primary">Place Bet</button>
+      </div>
+    </div>
+    
+    <!-- BET STATUS -->
+    <section id="bet-status" class="vx-info">
+      <h2>Bet Status</h2>
+      <p id="status-msg">Waiting for your action...</p>
+      <div>
+        <h3>Your Bet Details</h3>
+        <p id="last-bet-numbers">No bet placed yet</p>
+        <p id="last-bet-stake">No stake placed yet</p>
+        <h3>Last Bet Result</h3>
+        <p id="last-bet-result">No result yet</p>
+        <p id="last-win-status">No win/loss yet</p>
+      </div>
+    </section>
+
+    <!-- DECODE EVENT DATA -->
+    <section id="decode-section" class="vx-info">
+      <h2>Decode Event Data</h2>
+      <p class="muted">
+        To view your ticket details, copy the <strong>transaction hash</strong> of your FROLL bet (the bet transaction), paste it into the box below, then click <em>Decode</em>.
+      </p>
+      <textarea id="decode-input" class="decode-textarea" placeholder="0x..." rows="3"></textarea>
+      <div class="place-bet-buttons">
+        <button id="decode-btn" class="vx-btn">Decode</button>
+      </div>
+      <div id="decode-output" class="decode-output"></div>
+    </section>
+
+    <!-- FROLL PRICE -->
+    <section id="price-panel" class="vx-info">
+      <h3>FROLL Price</h3>
+      <p id="frollPrice" class="skeleton">Loading price...</p>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <ul class="footer-links">
+      <li><a href="https://Lottery.vin" target="_blank">Home</a></li>
+      <li><a href="https://t.me/FortuneRolls" target="_blank">📢 Telegram</a></li>
+      <li><a href="https://x.com/FortuneRolls" target="_blank">🐦 X (Twitter)</a></li>
+      <li><a href="https://dex-trade.com/spot/trading/FROLLUSDT?interface=classic" target="_blank" rel="noopener">Trade FROLL/USDT</a></li>
+    </ul>
+  </footer>
+
+  <!-- Ethers.js v6 + App -->
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.2/dist/ethers.umd.min.js" defer></script>
+  <script defer src="app.js"></script>
+
+  <!-- FROLL Price Update -->
+  <script>
+    (function () {
+      const elPanel = document.getElementById('frollPrice');
+      const elNav   = document.getElementById('frollPriceNav');
+
+      const TICKER = (pair) => `https://api.dex-trade.com/v1/public/ticker?pair=${pair}`;
+
+      function fmt(n){
+        return (n>=1)
+          ? n.toLocaleString(undefined,{minFractionDigits:2,maxFractionDigits:2})
+          : n.toLocaleString(undefined,{maximumSignificantDigits:6});
+      }
+
+      async function fetchUsd(){
+        try{
+          const r = await fetch(TICKER('FROLLUSDT'), { cache:'no-store' });
+          const j = await r.json();
+          const p = Number(j?.data?.last);
+          if (j?.status && Number.isFinite(p) && p>0) return p;
+        }catch(_){}
+
+        try{
+          const r = await fetch(TICKER('FROLLUSD'), { cache:'no-store' });
+          const j = await r.json();
+          const p = Number(j?.data?.last);
+          if (j?.status && Number.isFinite(p) && p>0) return p;
+        }catch(_){}
+
+        throw new Error('price unavailable');
+      }
+
+      async function tick(){
+        try{
+          const px  = await fetchUsd();
+          const txt = `1 FROLL ≈ $${fmt(px)} USD`;
+          if (elPanel) elPanel.textContent = txt;
+          if (elNav)   elNav.textContent   = txt;
+        }catch(e){
+          if (elPanel) elPanel.textContent = '1 FROLL ≈ $-- USD';
+          if (elNav)   elNav.textContent   = '1 FROLL ≈ $-- USD';
+        }
+      }
+
+      tick();
+      setInterval(tick, 60000);
+    })();
+  </script>
+</body>
+</html>
